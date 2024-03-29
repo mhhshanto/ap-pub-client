@@ -15,6 +15,8 @@ import Logout from "../pages/Logout";
 import ErrorPage from "../pages/shared/ErrorPage";
 import About from "../pages/about/About";
 import Blog from "../pages/blog/Blog";
+import UnderDevelop from "../pages/underdevlop/UnderDevelop";
+import Faq from "../pages/faq/Faq";
 
 const router = createBrowserRouter([
   {
@@ -33,7 +35,7 @@ const router = createBrowserRouter([
       {
         path: "/book/:id",
         element: <SignleBook />,
-        loader: ({ params }) => fetch(`https://app-server-olive.vercel.app/book/${params.id}`)
+        loader: ({ params }) => fetch(`http://localhost:5002/book/${params.id}`)
       },
       {
         path: "/about",
@@ -42,6 +44,13 @@ const router = createBrowserRouter([
       {
         path: "/blog",
         element: <Blog />
+      }, {
+        path: "/underdevlop",
+        element: <UnderDevelop />
+      }
+      , {
+        path: "/faq",
+        element: <Faq />
       }
     ]
   },
@@ -54,7 +63,7 @@ const router = createBrowserRouter([
       { path: "/admin/dashboard/manage", element: <ManageBooks /> },
       {
         path: "/admin/dashboard/edit-books/:id", element: <EditBooks />,
-        loader: ({ params }) => fetch(`https://app-server-olive.vercel.app/book/${params.id}`)
+        loader: ({ params }) => fetch(`http://localhost:5002/book/${params.id}`)
       },
     ],
   },

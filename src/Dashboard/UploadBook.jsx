@@ -55,7 +55,7 @@ const UploadBook = () => {
       bookPDFURL,
     };
     // console.log(dataObj)
-    fetch("https://app-server-olive.vercel.app/upload-book", {
+    fetch("http://localhost:5002/upload-book", {
       method: "POST",
 
       headers: {

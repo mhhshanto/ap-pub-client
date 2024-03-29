@@ -33,28 +33,28 @@ const Navbar = () => {
     const navItems = [
         { link: "Home", path: "/" },
         { link: "About app", path: "/about" },
-        { link: "Areas we cover", path: "/shop" },
+        { link: "Areas we cover", path: "/faq" },
         { link: "Publish with us", path: "/admin/dashboard" },
-        { link: "Our advisors", path: "/blog" },
+        { link: "Our advisors", path: "/underdevlop" },
     ];
     return (
         <header className="w-full bg-transparent fixed top-0 left-0 right-0 transition-all ease-in duration-300">
             <nav className={`py-4 lg:px-24 px-4 ${isSticky ? "sticky top-0 left-0 right-0 bg-blue-300" : ""
                 }`}>
                 <div className="flex justify-between items-center text-base gap-8">
-                    <Link to="/" className="text-2xl font-bold text-blue-700 flex items-center gap-2"><GiBookmarklet className="inline-block"/>Australia Pacific Publisher</Link>
+                    <Link to="/" className="text-2xl font-bold text-blue-700 flex items-center gap-2"><GiBookmarklet className="inline-block" />Australia Pacific Publisher</Link>
 
                     <ul className="md:flex space-x-12 hidden navitems">
 
                         {
-                            navItems.map(({ link, path }) => <Link key={link} to={path}  className="link block text-base cursor-pointer uppercase text-black hover:text-blue-700">
+                            navItems.map(({ link, path }) => <Link key={link} to={path} className="link block text-base cursor-pointer uppercase text-black hover:text-blue-700">
                                 {link}
                             </Link>)
                         }
                     </ul>
 
                     <div className="space-x-12 hidden lg:flex items-center">
-                       <button> <FaBarsStaggered className="w-5 hover:text-blue-700" /></button>
+                        <button> <FaBarsStaggered className="w-5 hover:text-blue-700" /></button>
                     </div>
 
                     {/* menu btn, visible on mobile screen */}
@@ -77,7 +77,7 @@ const Navbar = () => {
                 >
                     {
                         navItems.map(({ link, path }) => <a
-                            href={path} 
+                            href={path}
                             key={link}
                             onClick={toggleMenu}
                             className="block  text-white hover:text-gray-500"

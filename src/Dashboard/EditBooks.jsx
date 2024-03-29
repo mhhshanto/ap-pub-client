@@ -61,7 +61,7 @@ const EditBooks = () => {
     // console.log(bookObj)
 
     // update the book object
-    fetch(`https://app-server-olive.vercel.app/book/${id}`, {
+    fetch(`http://localhost:5002/book/${id}`, {
       method: "PATCH",
 
       headers: {
