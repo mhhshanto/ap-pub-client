@@ -10,16 +10,16 @@ const FooterMain = () => {
           <div>
             <Footer.Title title="Company" />
             <Footer.LinkGroup col>
-              <Footer.Link href="#">
+              <Footer.Link href="/about">
                 About
               </Footer.Link>
-              <Footer.Link href="#">
+              <Footer.Link href="/underdevlop">
                 Careers
               </Footer.Link>
-              <Footer.Link href="#">
+              <Footer.Link href="/underdevlop">
                 Brand Center
               </Footer.Link>
-              <Footer.Link href="#">
+              <Footer.Link href="/blog">
                 Blog
               </Footer.Link>
             </Footer.LinkGroup>
@@ -27,16 +27,16 @@ const FooterMain = () => {
           <div>
             <Footer.Title title="help center" />
             <Footer.LinkGroup col>
-              <Footer.Link href="#">
+              <Footer.Link href="/underdevlop">
                 Discord Server
               </Footer.Link>
-              <Footer.Link href="#">
+              <Footer.Link href="/underdevlop">
                 Twitter
               </Footer.Link>
-              <Footer.Link href="#">
+              <Footer.Link href="/underdevlop">
                 Facebook
               </Footer.Link>
-              <Footer.Link href="#">
+              <Footer.Link href="/underdevlop">
                 Contact Us
               </Footer.Link>
             </Footer.LinkGroup>
@@ -44,13 +44,13 @@ const FooterMain = () => {
           <div>
             <Footer.Title title="legal" />
             <Footer.LinkGroup col>
-              <Footer.Link href="#">
+              <Footer.Link href="/underdevlop">
                 Privacy Policy
               </Footer.Link>
-              <Footer.Link href="#">
+              <Footer.Link href="/underdevlop">
                 Licensing
               </Footer.Link>
-              <Footer.Link href="#">
+              <Footer.Link href="/underdevlop">
                 Terms & Conditions
               </Footer.Link>
             </Footer.LinkGroup>
@@ -58,16 +58,16 @@ const FooterMain = () => {
           <div>
             <Footer.Title title="download" />
             <Footer.LinkGroup col>
-              <Footer.Link href="#">
+              <Footer.Link href="/underdevlop">
                 iOS
               </Footer.Link>
-              <Footer.Link href="#">
+              <Footer.Link href="/underdevlop">
                 Android
               </Footer.Link>
-              <Footer.Link href="#">
+              <Footer.Link href="/underdevlop">
                 Windows
               </Footer.Link>
-              <Footer.Link href="#">
+              <Footer.Link href="/underdevlop">
                 MacOS
               </Footer.Link>
             </Footer.LinkGroup>

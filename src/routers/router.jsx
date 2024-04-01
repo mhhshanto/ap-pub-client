@@ -35,7 +35,7 @@ const router = createBrowserRouter([
       {
         path: "/book/:id",
         element: <SignleBook />,
-        loader: ({ params }) => fetch(`http://localhost:5002/book/${params.id}`)
+        loader: ({ params }) => fetch(`https://bookstore-api-delta.vercel.app/book/${params.id}`)
       },
       {
         path: "/about",
@@ -63,7 +63,7 @@ const router = createBrowserRouter([
       { path: "/admin/dashboard/manage", element: <ManageBooks /> },
       {
         path: "/admin/dashboard/edit-books/:id", element: <EditBooks />,
-        loader: ({ params }) => fetch(`http://localhost:5002/book/${params.id}`)
+        loader: ({ params }) => fetch(`https://bookstore-api-delta.vercel.app/book/${params.id}`)
       },
     ],
   },

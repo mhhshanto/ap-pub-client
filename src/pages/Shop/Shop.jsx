@@ -7,7 +7,7 @@ export default function Shop() {
   const [books, setBooks] = useState([]);
   // fetching data
   useEffect(() => {
-    fetch('http://localhost:5002/all-books')
+    fetch('https://bookstore-api-delta.vercel.app/all-books')
       .then(res => res.json())
       .then(data => setBooks(data))
   }, [loading]);

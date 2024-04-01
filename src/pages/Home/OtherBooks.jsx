@@ -5,7 +5,7 @@ const OtherBooks = () => {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5002/all-books").then(res => res.json()).then(data => setBooks(data.slice(5, 12)))
+        fetch("https://bookstore-api-delta.vercel.app/all-books").then(res => res.json()).then(data => setBooks(data.slice(5, 12)))
     }, [])
 
     return (
