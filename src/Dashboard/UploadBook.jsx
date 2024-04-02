@@ -55,7 +55,7 @@ const UploadBook = () => {
       bookPDFURL,
     };
     // console.log(dataObj)
-    fetch("https://bookstore-api-delta.vercel.app/upload-book", {
+    fetch("https://bookstore-api-pw4u.onrender.com/upload-book", {
       method: "POST",
 
       headers: {

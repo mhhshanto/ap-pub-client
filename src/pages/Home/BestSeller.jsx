@@ -5,7 +5,7 @@ const BestSeller = () => {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        fetch("https://bookstore-api-delta.vercel.app/all-books").then(res => res.json()).then(data => setBooks(data.slice(0, 8)))
+        fetch("https://bookstore-api-pw4u.onrender.com/all-books").then(res => res.json()).then(data => setBooks(data.slice(0, 10)))
     }, [])
 
     return (

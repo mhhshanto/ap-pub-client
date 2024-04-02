@@ -61,7 +61,7 @@ const EditBooks = () => {
     // console.log(bookObj)
 
     // update the book object
-    fetch(`https://bookstore-api-delta.vercel.app/book/${id}`, {
+    fetch(`https://bookstore-api-pw4u.onrender.com/book/${id}`, {
       method: "PATCH",
 
       headers: {
