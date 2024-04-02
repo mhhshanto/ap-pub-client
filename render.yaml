@@ -1,4 +1,4 @@
 routes:
-  - source: ^/(?!about|underdevelop).*  # Match any request except those starting with /about or /underdevelop
+  - source: /(.*)   # Match any request
     destination: /   # Redirect to the root
     type: 200        # Respond with a 200 status code
