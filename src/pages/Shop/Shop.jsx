@@ -22,7 +22,9 @@ export default function Shop() {
 
   return (
     <div className='my-28 px-4 lg:px-24'>
-      <h2 className='text-3xl font-bold text-center mb-16 z-40'>All Books are Available Here</h2>
+      <h2 style={{ fontSize: '2.25rem', fontWeight: 700, textAlign: 'center', marginBottom: '4rem', color: '#4c4ce9' }}>SOCIAL DEVELOPMENT BOOKS</h2>
+
+
       <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8'>
         {
           books.map(book => <Card key={book.id}>
