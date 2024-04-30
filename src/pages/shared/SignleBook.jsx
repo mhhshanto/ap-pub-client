@@ -4,9 +4,11 @@ import { Card, Button } from 'flowbite-react';
 import { HiArrowLeft, HiShoppingCart } from 'react-icons/hi';
 import { FaCartPlus } from 'react-icons/fa';
 
-const SingleBook = () => {
+const SignleBook = () => {
   const data = useLoaderData();
   const { bookTitle, authorName, bookDescription, imageURL, publishedDate, pageCount, rating, genre, price } = data;
+
+  console.log(data)
 
   const handleBuyNow = () => {
     // Implement buy now functionality
@@ -20,7 +22,7 @@ const SingleBook = () => {
 
   return (
     <div className="flex flex-col items-center mt-20">
-      <Link to="/" className="mb-4">
+      <Link to="/" className="mb-4 mt-11">
         <Button color="gray" pill={true}>
           <HiArrowLeft className="mr-2 h-5 w-5" />
           Back to Home
@@ -77,4 +79,4 @@ const SingleBook = () => {
   );
 };
 
-export default SingleBook;
+export default SignleBook;

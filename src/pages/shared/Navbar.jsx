@@ -42,7 +42,11 @@ const Navbar = () => {
             <nav className={`py-4 lg:px-24 px-4 ${isSticky ? "sticky top-0 left-0 right-0 bg-blue-300" : ""
                 }`}>
                 <div className="flex justify-between items-center text-base gap-8">
-                    <Link to="/" className="text-2xl font-bold text-blue-700 flex items-center gap-2"><GiBookmarklet className="inline-block" />Australia Pacific Publisher</Link>
+                    <Link to="/" className="text-2xl font-bold text-blue-700 flex items-center gap-2">
+                        <img src="app-logo.png" alt="Australia Pacific Publisher Logo" className="inline-block h-20 w-20" />Australia Pacific Publisher
+                    </Link>
+
+
 
                     <ul className="md:flex space-x-12 hidden navitems">
 

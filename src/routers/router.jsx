@@ -35,7 +35,7 @@ const router = createBrowserRouter([
       {
         path: "/book/:id",
         element: <SignleBook />,
-        loader: ({ params }) => fetch(`https://bookstore-api-pw4u.onrender.com/book/${params.id}`)
+        loader: ({ params }) => fetch(`https://bookstore-api-pw4u.onrender.com/all-books/${params.id}`)
       },
       {
         path: "/about",

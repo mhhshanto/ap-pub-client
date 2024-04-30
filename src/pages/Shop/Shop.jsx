@@ -43,7 +43,14 @@ export default function Shop() {
       </button>
     </Card>
   );
-
+  const truncateDescription = (description) => {
+    const words = description.split(" ");
+    if (words.length > 20) {
+      return words.slice(0, 20).join(" ") + "...";
+    } else {
+      return description;
+    }
+  };
   return (
     <div className="my-28 px-4 lg:px-24">
       <h2
@@ -57,7 +64,7 @@ export default function Shop() {
       >
         SOCIAL DEVELOPMENT BOOKS
       </h2>
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 max-w-6xl mx-auto">
         {loading
           ? Array.from({ length: 6 }).map((_, index) => (
               <BookCardPlaceholder key={index} />
@@ -70,8 +77,7 @@ export default function Shop() {
                 </h5>
                 <p className="font-normal text-gray-700 dark:text-gray-400">
                   <p>
-                    Here are the biggest enterprise technology acquisitions of
-                    2021 so far, in reverse chronological order....
+                  {truncateDescription(book.bookDescription)}
                   </p>
                 </p>
                 <button className="px-4 py-2 bg-blue-600 text-white rounded">
