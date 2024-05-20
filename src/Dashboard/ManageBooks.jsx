@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const ManageBooks = () => {
     const [allBooks, setAllBooks] = useState([]);
     useEffect(() => {
-        fetch(`https://bookstore-api-pw4u.onrender.com/all-books`)
+        fetch(`https://hasib-vai-backend.vercel.app/all-books`)
             .then((res) => res.json())
             .then((data) => {
                 // console.log(data);
@@ -17,7 +17,7 @@ const ManageBooks = () => {
     // delete a books
     const handleDelete = (id) => {
         // console.log(id)
-        fetch(`https://bookstore-api-pw4u.onrender.com/book/${id}`, {
+        fetch(`https://hasib-vai-backend.vercel.app/book/${id}`, {
             method: "DELETE",
         })
             .then((res) => res.json())
@@ -33,12 +33,12 @@ const ManageBooks = () => {
     const onPageChange = () => setCurrentPage(page);
 
     return (
-        <div className='px-4 my-12'>
+        <div className='px-4 my-12 w-full overflow-auto'>
             <h2 className='mb-8 text-3xl font-bold'>Manager Your Books Inventory!</h2>
 
             {/* table */}
 
-            <Table className='lg:w-[1180px]'>
+            <Table className=' min-w-[1250px]'>
                 <Table.Head>
                     <Table.HeadCell>
                         No.

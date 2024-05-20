@@ -3,15 +3,16 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
 import googleLogo from '../assets/google-logo.svg'
 import fbLogo from '../assets/facebook-log.svg'
-
+import userSaveToDB from '../hooks/userSaveToDB';
+import toast from 'react-hot-toast'
 
 const Signup = () => {
 
     const [ErrorMessage, setErrorMessage] = useState('');
 
-    const { signUpWithGmail, createUser } = useContext(AuthContext);
+    const { signUpWithGmail, createUser , user} = useContext(AuthContext);
 
-    console.log(signUpWithGmail)
+    
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -21,8 +22,16 @@ const Signup = () => {
     const handleRegister = () => {
         signUpWithGmail().then((result) => {
             const user = result.user;
+            if(user){
+                const role = userSaveToDB(user?.email)
+                if (role) {
+                    toast.success("Sign up successful!")
+                    
+                }
+                navigate(from);
+            }
             navigate(from, { replace: true });
-        }).catch((error) => console.log(error))
+        }).catch((error) => toast.error(error.message))
     }
 
     // login with email password
@@ -33,14 +42,21 @@ const Signup = () => {
         const password = form.password.value;
         console.log(email, password);
         createUser(email, password).then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
+            
+            if(userCredential?.user){
+               const role = userSaveToDB(userCredential?.user?.email)
+               if (role) {
+                   toast.success("Sign up successful!")
+                   
+               }
+               navigate(from);
+            }
             // ...
           })
           .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            console.log(error.message)
+            toast.error(error.message)
             // ..
           })
     }

@@ -1,25 +1,61 @@
-import React from 'react';
-import { useLoaderData, Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { useLoaderData, Link, useNavigate } from 'react-router-dom';
 import { Card, Button } from 'flowbite-react';
 import { HiArrowLeft, HiShoppingCart } from 'react-icons/hi';
-import { FaCartPlus } from 'react-icons/fa';
+import { AuthContext } from '../../contexts/AuthProvider';
+import toast from 'react-hot-toast';
 
-const SignleBook = () => {
+const SingleBook = () => {
   const data = useLoaderData();
-  const { bookTitle, authorName, bookDescription, imageURL, publishedDate, pageCount, rating, genre, price } = data;
+  const { setCartDataState , user} = useContext(AuthContext);
+  const navigate = useNavigate()
 
-  console.log(data)
+  // Ensure that the data is fetched and passed correctly
+  if (!data) {
+    return <div>Loading...</div>; // Add loading indicator
+  }
+
+  const { bookTitle, authorName, bookDescription, imageURL, publishedDate, pageCount, rating, genre, price, _id } = data;
+
+
 
   const handleBuyNow = () => {
     // Implement buy now functionality
     console.log('Buy Now clicked');
   };
 
-  const handleAddToCart = () => {
-    // Implement add to cart functionality
-    console.log('Add to Cart clicked');
+  const handleAddToCart = (id) => {
+
+    const localData = localStorage.getItem('bookListId');
+    const parseLocalData = JSON.parse(localData);
+    if (!user) {
+      return navigate('/login');
+    }
+
+    if (!parseLocalData) {
+      localStorage.setItem('bookListId', JSON.stringify([id]))
+      const localData1 = localStorage.getItem('bookListId');
+      const parseLocalData1 = JSON.parse(localData1);
+      setCartDataState(parseLocalData1.length)
+      toast.success('Product added successfully!')
+    } else {
+      if (!parseLocalData.includes(id)) {
+        localStorage.setItem('bookListId', JSON.stringify([...parseLocalData, id]))
+        const localData1 = localStorage.getItem('bookListId');
+        const parseLocalData1 = JSON.parse(localData1);
+        setCartDataState(parseLocalData1.length)
+        toast.success('Product added successfully!')
+      } else {
+        toast.error('You have already added it')
+      }
+    }
+
+
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="flex flex-col items-center mt-20">
       <Link to="/" className="mb-4 mt-11">
@@ -67,10 +103,13 @@ const SignleBook = () => {
               <Button color="success" onClick={handleBuyNow}>
                 Buy Now
               </Button>
-              <Button color="gray" onClick={handleAddToCart}>
+
+              <Button color="gray" onClick={() => handleAddToCart(_id)}>
                 <HiShoppingCart className="mr-2 h-5 w-5" />
                 Add to Cart
               </Button>
+
+
             </div>
           </div>
         </div>
@@ -79,4 +118,4 @@ const SignleBook = () => {
   );
 };
 
-export default SignleBook;
+export default SingleBook;

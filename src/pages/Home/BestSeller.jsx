@@ -1,16 +1,31 @@
-import React, { useEffect, useState } from 'react'
 import BookCards from '../shared/BookCards';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+import { Spinner } from "flowbite-react";
 
 const BestSeller = () => {
-    const [books, setBooks] = useState([]);
 
-    useEffect(() => {
-        fetch("https://bookstore-api-pw4u.onrender.com/all-books").then(res => res.json()).then(data => setBooks(data.slice(0, 10)))
-    }, [])
+    const { data: books, isLoading } = useQuery({
+        queryKey: ['best-sell-books'],
+        queryFn: async () => {
+            const data = await axios.get("https://hasib-vai-backend.vercel.app/all-books?count=5")
+            return data.data;
+        }
+    })
+
+
+
+
+    console.log(books)
 
     return (
-        <>
-            <BookCards books={books} headline={"Best Seller Books"} />
+        <> {
+            isLoading ? <div className="text-center h-[80vh] flex justify-center items-center">
+                <Spinner aria-label=" Extra large spinner example" size='xl' />
+            </div> :
+                <BookCards books={books} headline={"Best Seller Books"} />
+        }
+
         </>
     )
 }

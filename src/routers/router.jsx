@@ -17,6 +17,18 @@ import About from "../pages/about/About";
 import Blog from "../pages/blog/Blog";
 import UnderDevelop from "../pages/underdevlop/UnderDevelop";
 import Faq from "../pages/faq/Faq";
+import Careers from "../pages/careers/Careers";
+import Cart from "../pages/cart/Cart";
+import SearchTitle from "../pages/seacthTitle/SearchTitle";
+import Payment from "../pages/payment-confirm/Payment";
+import DashboardDetai from "../Dashboard/DashboardDetai";
+import Careers2 from "../pages/careers/careers2/Careers2";
+import SingleJob from "../pages/careers/careers2/SingleJob";
+import UserDashboard from "../Dashboard/UserDashboard";
+import AdminPrivateRoute from "../PrivateRoute/AdminPrivateRoute";
+import UserDashDeti from "../Dashboard/UserDashDeti";
+
+
 
 const router = createBrowserRouter([
   {
@@ -35,7 +47,7 @@ const router = createBrowserRouter([
       {
         path: "/book/:id",
         element: <SignleBook />,
-        loader: ({ params }) => fetch(`https://bookstore-api-pw4u.onrender.com/all-books/${params.id}`)
+        loader: ({ params }) => fetch(`https://hasib-vai-backend.vercel.app/book/${params.id}`)
       },
       {
         path: "/about",
@@ -51,20 +63,57 @@ const router = createBrowserRouter([
       , {
         path: "/faq",
         element: <Faq />
+      },
+      {
+        path: "/careers",
+        element: <Careers />
+      },
+      {
+        path: "/career/search/:title",
+        element: <Careers2 />,
+        loader: ({ params }) => fetch(`https://hasib-vai-backend.vercel.app/search-career-data/${params.title}`)
+      },
+      {
+        path: "/career/search/result/:id",
+        element: <SingleJob />,
+        loader: ({ params }) => fetch(`https://hasib-vai-backend.vercel.app/search-career-single-data/${params.id}`)
+      },
+      {
+        path: "/cart",
+        element: <Cart />
+      },
+      {
+        path: "/search-book/:title",
+        element: <SearchTitle />
+      },
+      {
+        path: "/payment-confirm",
+        element: <Payment />
       }
     ]
   },
   {
     path: "/admin/dashboard",
-    element: <DashboardLayout />,
+    element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
     children: [
-      { path: "/admin/dashboard", element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute> },
+      { path: "/admin/dashboard/admin", element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute> },
+      { path: "/admin/dashboard/user", element: <PrivateRoute><UserDashboard/></PrivateRoute> },
       { path: "/admin/dashboard/upload", element: <UploadBook /> },
       { path: "/admin/dashboard/manage", element: <ManageBooks /> },
       {
         path: "/admin/dashboard/edit-books/:id", element: <EditBooks />,
-        loader: ({ params }) => fetch(`https://bookstore-api-pw4u.onrender.com/book/${params.id}`)
+        loader: ({ params }) => fetch(`https://hasib-vai-backend.vercel.app/book/${params.id}`)
       },
+      {
+        path:'/admin/dashboard/dashboard-details/:id',
+        loader: ({ params }) => fetch(`https://hasib-vai-backend.vercel.app/payment-single/${params.id}`),
+        element: <DashboardDetai/>
+      },
+      {
+        path:'/admin/dashboard/user-dashboard-details/:id',
+        loader: ({ params }) => fetch(`https://hasib-vai-backend.vercel.app/payment-single/${params.id}`),
+        element: <UserDashDeti/>
+      }
     ],
   },
   {

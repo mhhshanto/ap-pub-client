@@ -55,7 +55,7 @@ const UploadBook = () => {
       bookPDFURL,
     };
     // console.log(dataObj)
-    fetch("https://bookstore-api-pw4u.onrender.com/upload-book", {
+    fetch("https://hasib-vai-backend.vercel.app/upload-book", {
       method: "POST",
 
       headers: {
@@ -74,9 +74,9 @@ const UploadBook = () => {
 
 
   return (
-    <div className='px-4 my-12'>
+    <div className='px-4 my-12 lg:w-[80%] w-full'>
       <h2 className='mb-8 text-3xl font-bold'>Upload A Book!</h2>
-      <form className="flex lg:w-[1180px] flex-col flex-wrap gap-4" onSubmit={handleSubmit}>
+      <form className="flex w-full flex-col flex-wrap gap-4" onSubmit={handleSubmit}>
 
         {/* first row */}
         <div className='flex gap-8'>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createContext } from 'react';
 import {GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut} from 'firebase/auth';
-import app from '../firebase/firebase.config';
+import app from '../../src/firebase/firebase.config';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -9,9 +9,23 @@ export const AuthContext = createContext();
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
+
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [cartDataState,setCartDataState] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
+    // const [paymentInfo,setPaymentInfo] = useState()
+
+    useEffect(()=> {
+        const getLocalCount = JSON.parse(localStorage.getItem('bookListId'));
+        
+        if(getLocalCount){
+            setCartDataState(getLocalCount.length)
+        }
+    },[])
+
+    
 
     const createUser = (email, password) => {
         setLoading(true);
@@ -35,7 +49,6 @@ const AuthProvider = ({children}) => {
 
     useEffect( () =>{
         const unsubscribe = onAuthStateChanged(auth, currentUser =>{
-            console.log(currentUser);
             setUser(currentUser);
             setLoading(false);
         });
@@ -51,8 +64,13 @@ const AuthProvider = ({children}) => {
         createUser, 
         login, 
         logOut,
-        signUpWithGmail
+        signUpWithGmail,
+        cartDataState,
+        setCartDataState,
+        totalPrice,
+        setTotalPrice
     }
+    console.log(user)
 
     return (
         <AuthContext.Provider value={authInfo}>

@@ -3,15 +3,26 @@ import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
+
+// const firebaseConfig = {
+//   apiKey: import.meta.env.VITE_APIKEY,
+//   authDomain: import.meta.env.VITE_AUTHDOMAIN,
+//   projectId: import.meta.env.VITE_PROJECTID,
+//   storageBucket: import.meta.env.VITE_STORAGEBUCKET,
+//   messagingSenderId: import.meta.env.VITE_MESSAGINGSENDERID,
+//   appId: import.meta.env.VITE_APPID,
+// };
+
 const firebaseConfig = {
-    apiKey: "AIzaSyCIQl0weHWkyX7FNmGNCTElUYL9aL0HPMA",
-    authDomain: "online-book-store-78516.firebaseapp.com",
-    projectId: "online-book-store-78516",
-    storageBucket: "online-book-store-78516.appspot.com",
-    messagingSenderId: "282181520275",
-    appId: "1:282181520275:web:0ce28538cea0433ea83666"
-  };
+  apiKey: "AIzaSyAkq9NIdklgIpk6qSuPsrIAUNOerIG1hdw",
+  authDomain: "book-inventory-2c676.firebaseapp.com",
+  projectId: "book-inventory-2c676",
+  storageBucket: "book-inventory-2c676.appspot.com",
+  messagingSenderId: "273438946324",
+  appId: "1:273438946324:web:57a545faca47e6b70ae301"
+};
+
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

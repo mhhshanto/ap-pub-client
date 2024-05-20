@@ -3,6 +3,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
 import googleLogo from '../assets/google-logo.svg'
 import fbLogo from '../assets/facebook-log.svg'
+import userSaveToDB from '../hooks/userSaveToDB';
+import toast from 'react-hot-toast';
 
 export default function Login() {
 
@@ -20,8 +22,15 @@ export default function Login() {
     const handleRegister = () => {
         signUpWithGmail().then((result) => {
             const user = result.user;
-            navigate(from, { replace: true });
-        }).catch((error) => console.log(error))
+            if (user) {
+                const role = userSaveToDB(user?.email)
+                if (role) {
+                    
+                }
+                navigate(from);
+            }
+
+        }).catch((error) => toast.error(error.message))
     }
 
     // login with email password
@@ -34,14 +43,20 @@ export default function Login() {
         login(email, password).then((result) => {
             // Signed in 
             const user = result.user;
-            console.log(user);
-            alert("Login successful!")
-            navigate(from, { replace: true });
+            if (user) {
+                const role = userSaveToDB(user?.email)
+                if (role) {
+                    toast.success("Login successful!")
+                }
+                navigate(from);
+            }
+            
             // ...
         })
             .catch((error) => {
                 const errorMessage = error.message;
                 setErrorMessage(errorMessage)
+                toast.error(error.message)
             });
     }
 
