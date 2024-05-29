@@ -23,7 +23,7 @@ const Signup = () => {
         signUpWithGmail().then((result) => {
             const user = result.user;
             if(user){
-                const role = userSaveToDB(user?.email)
+                const role = userSaveToDB(user?.email, user?.displayName)
                 if (role) {
                     toast.success("Sign up successful!")
                     
@@ -44,7 +44,7 @@ const Signup = () => {
         createUser(email, password).then((userCredential) => {
             
             if(userCredential?.user){
-               const role = userSaveToDB(userCredential?.user?.email)
+               const role = userSaveToDB(userCredential?.user?.email, userCredential?.user?.displayName)
                if (role) {
                    toast.success("Sign up successful!")
                    

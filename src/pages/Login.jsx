@@ -23,7 +23,7 @@ export default function Login() {
         signUpWithGmail().then((result) => {
             const user = result.user;
             if (user) {
-                const role = userSaveToDB(user?.email)
+                const role = userSaveToDB(user?.email, user?.displayName)
                 if (role) {
                     
                 }
@@ -44,7 +44,7 @@ export default function Login() {
             // Signed in 
             const user = result.user;
             if (user) {
-                const role = userSaveToDB(user?.email)
+                const role = userSaveToDB(user?.email, user?.displayName)
                 if (role) {
                     toast.success("Login successful!")
                 }

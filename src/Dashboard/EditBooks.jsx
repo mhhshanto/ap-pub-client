@@ -1,33 +1,27 @@
-import React, { useState } from 'react'
-import { Button, Checkbox, Label, Select, TextInput, Textarea } from 'flowbite-react';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useState } from 'react'
+import { Button, Label, Select, TextInput, Textarea } from 'flowbite-react';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
 const EditBooks = () => {
-  const { id } = useParams();
-  const { bookTitle, authorName, imageURL, category, bookDescription, bookPDFURL } = useLoaderData();
-  // console.log(bookTitle)
+  const { bookTitle, authorName, imageURL, category, bookDescription, price, rating, _id } = useLoaderData();
+  const navigate = useNavigate()
 
   const bookCategories = [
-    "Fiction",
-    "Non-fiction",
-    "Mystery",
-    "Programming",
-    "Science fiction",
-    "Fantasy",
-    "Horror",
-    "Biography",
-    "Autobiography",
-    "History",
-    "Self-help",
-    "Business",
-    "Memoir",
-    "Poetry",
-    "Children's books",
-    "Travel",
-    "Religion and spirituality",
-    "Science",
-    "Art and design",
-  ];
+    "Social-Development",
+    "Economics Textbook",
+    "Nursing Books",
+    "Social Work and Social Behavior",
+    "History of Social Science",
+    "Climate Change",
+    "Indigenous Australia",
+    "Sustainable Development Goals",
+    "Colonialism and Social Anthropology",
+    "Gender Studies",
+    "Psychology",
+    "Medical Sciences"
+];
 
   const [selectedBookCategory, setSelectedBookCategory] = useState(
     bookCategories[0]
@@ -48,7 +42,8 @@ const EditBooks = () => {
     const imageURL = form.imageURL.value;
     const category = form.categoryName.value;
     const bookDescription = form.bookDescription.value;
-    const bookPDFURL = form.bookPDFURL.value;
+    const price = form.price.value;
+    const rating = form.rating.value;
 
     const bookObj = {
       bookTitle,
@@ -56,30 +51,54 @@ const EditBooks = () => {
       imageURL,
       category,
       bookDescription,
-      bookPDFURL,
+      id: _id,
+      price,
+      rating
     };
-    // console.log(bookObj)
 
-    // update the book object
-    fetch(`https://hasib-vai-backend.vercel.app/book/${id}`, {
-      method: "PATCH",
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, update it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
 
-      headers: {
-        "Content-type": "application/json",
-      },
+        axios.patch('https://hasib-vai-backend.vercel.app/update-book', { bookObj })
+          .then(res => {
+            if (res.data.modifiedCount > 0) {
 
-      body: JSON.stringify(bookObj),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+              Swal.fire({
+                title: "Updated!",
+                text: "Your file has been Updated.",
+                icon: "success"
+              });
+              navigate('/admin/dashboard/manage')
+
+            }
+
+          })
+          .catch(err => {
+            console.log(err.message);
+          })
+
+
+
+      }
+    });
+
+
+
+
   };
 
   return (
-    <div className='px-4 my-12'>
+    <div className='px-4 my-12 w-full'>
       <h2 className='mb-8 text-3xl font-bold'>Upload A Book!</h2>
-      <form className="flex lg:w-[1180px] flex-col flex-wrap gap-4" onSubmit={handleUpdate}>
+      <form className="flex flex-col flex-wrap gap-4" onSubmit={handleUpdate}>
 
         {/* first row */}
         <div className='flex gap-8'>
@@ -157,6 +176,7 @@ const EditBooks = () => {
               id="inputState"
               name="categoryName"
               className="w-full rounded"
+              defaultValue={category}
               value={selectedBookCategory}
               onChange={handleChangeSelectedValue}
             >
@@ -191,23 +211,43 @@ const EditBooks = () => {
         </div>
 
 
-        {/* book pdf url */}
-        <div>
-          <div className="mb-2 block">
-            <Label
-              htmlFor="bookPDFURL"
-              value="Book PDF Link"
+        <div className='flex justify-between gap-5'>
+          {/* book pdf url */}
+          <div className='flex-1'>
+            <div className="mb-2 block">
+              <Label
+                htmlFor="price"
+                value="Book Price"
+              />
+            </div>
+            <TextInput
+              id="price"
+              placeholder="Paste Book PDF URL here"
+              required
+              type="number"
+              name='price'
+              className='w-full'
+              defaultValue={price}
             />
           </div>
-          <TextInput
-            id="bookPDFURL"
-            placeholder="Paste Book PDF URL here"
-            required
-            type="text"
-            name='bookPDFURL'
-            className='w-full'
-            defaultValue={bookPDFURL}
-          />
+          {/* book pdf url */}
+          <div className='flex-1'>
+            <div className="mb-2 block">
+              <Label
+                htmlFor="rating"
+                value="Book Rating"
+              />
+            </div>
+            <TextInput
+              id="rating"
+              placeholder="Paste Book PDF URL here"
+              required
+              type="number"
+              name='rating'
+              className='w-full'
+              defaultValue={rating}
+            />
+          </div>
         </div>
 
 

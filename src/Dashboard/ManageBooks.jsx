@@ -2,35 +2,68 @@ import { Table } from 'flowbite-react'
 import React, { useEffect, useState } from 'react'
 import { Pagination } from 'flowbite-react';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import Swal from 'sweetalert2'
+
 
 const ManageBooks = () => {
-    const [allBooks, setAllBooks] = useState([]);
-    useEffect(() => {
-        fetch(`https://hasib-vai-backend.vercel.app/all-books`)
-            .then((res) => res.json())
-            .then((data) => {
-                // console.log(data);
-                setAllBooks(data);
-            });
-    }, []);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [count, setCount] = useState(0);
+    
+    const { data, refetch, isLoading } = useQuery({
+        queryKey: ['all-books-manage'],
+        queryFn: async () => {
+                const cartData = await axios.get(`https://hasib-vai-backend.vercel.app/all-books-manage?page=${currentPage}`)
+                return cartData.data;
+        }
+    })
 
-    // delete a books
+
+    useEffect(() => {
+        fetch(`https://hasib-vai-backend.vercel.app/all-books-count?category=all-books`)
+          .then(res => res.json())
+          .then(data => setCount(data.result))
+    
+      }, [])
+
+    
+
     const handleDelete = (id) => {
-        // console.log(id)
-        fetch(`https://hasib-vai-backend.vercel.app/book/${id}`, {
-            method: "DELETE",
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                // console.log(data);
-                // setAllBooks(data);
-            });
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+
+                axios.delete(`https://hasib-vai-backend.vercel.app/delete-book/${id}`)
+                .then(res=> {
+                    if(res.data.acknowledged){
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                          });
+                        refetch()
+                    }
+                })
+                .catch(err=> {
+                    console.log(err.message);
+                })      
+            }
+          });
+        
+     
+        
     };
 
 
-    // pagination
-    const [currentPage, setCurrentPage] = useState(1);
-    const onPageChange = () => setCurrentPage(page);
+    
 
     return (
         <div className='px-4 my-12 w-full overflow-auto'>
@@ -60,23 +93,23 @@ const ManageBooks = () => {
                     </Table.HeadCell>
                 </Table.Head>
 
-                {
-                    allBooks.map((book, index) => <Table.Body className="divide-y" key={book._id}>
+                { isLoading ? 'loading' :
+                    data.map((book, index) => <Table.Body className="divide-y" key={book._id}>
                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                 {index + 1}
                             </Table.Cell>
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                {book.bookTitle}
+                                {book?.bookTitle}
                             </Table.Cell>
                             <Table.Cell>
-                                {book.authorName}
+                                {book?.authorName}
                             </Table.Cell>
                             <Table.Cell>
-                                {book.category}
+                                {book?.category}
                             </Table.Cell>
                             <Table.Cell>
-                                $10.99
+                                ${book?.price}
                             </Table.Cell>
                             <Table.Cell>
                                 <Link
@@ -96,13 +129,16 @@ const ManageBooks = () => {
             {/* pagination */}
             <div className="flex items-center justify-center text-center mt-8">
                 <Pagination
-                    currentPage={1}
+                    currentPage={currentPage}
                     layout="pagination"
                     nextLabel="Go forward"
-                    onPageChange={page => { setCurrentPage(page) }}
+                    onPageChange={page => { 
+                    setCurrentPage(page)
+                    refetch()
+                    }}
                     previousLabel="Go back"
                     showIcons
-                    totalPages={1000}
+                    totalPages={Math.ceil(parseInt(count) / 10)}
                 />
             </div>
         </div>

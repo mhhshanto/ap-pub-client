@@ -27,6 +27,13 @@ import SingleJob from "../pages/careers/careers2/SingleJob";
 import UserDashboard from "../Dashboard/UserDashboard";
 import AdminPrivateRoute from "../PrivateRoute/AdminPrivateRoute";
 import UserDashDeti from "../Dashboard/UserDashDeti";
+import EmailPayment from "../pages/careers/payment-email/EmailPayment";
+import PublishUS from "../pages/publish-us/PublishUS";
+import RequestBookAdmin from "../Dashboard/publish-request/RequestBookAdmin";
+import RequestUser from "../Dashboard/publish-request/RequestUser";
+import CareerFormData from "../Dashboard/career-form-data/CareerFormData";
+import Users from "../Dashboard/users/Users";
+import SingleFormData from "../Dashboard/career-form-data/SingleFormData";
 
 
 
@@ -89,6 +96,14 @@ const router = createBrowserRouter([
       {
         path: "/payment-confirm",
         element: <Payment />
+      },
+      {
+        path: "/payment-email",
+        element: <EmailPayment />
+      },
+      {
+        path: "/publish-with-us",
+        element: <PrivateRoute><PublishUS /></PrivateRoute>
       }
     ]
   },
@@ -96,10 +111,20 @@ const router = createBrowserRouter([
     path: "/admin/dashboard",
     element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
     children: [
-      { path: "/admin/dashboard/admin", element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute> },
+      { path: "/admin/dashboard/admin", element: <PrivateRoute><Dashboard /></PrivateRoute> },
       { path: "/admin/dashboard/user", element: <PrivateRoute><UserDashboard/></PrivateRoute> },
-      { path: "/admin/dashboard/upload", element: <UploadBook /> },
-      { path: "/admin/dashboard/manage", element: <ManageBooks /> },
+      { path: "/admin/dashboard/admin/publishRequest", element: <PrivateRoute><RequestBookAdmin/></PrivateRoute> },
+      { path: "/admin/dashboard/admin/careerFormData", element: <PrivateRoute><CareerFormData/></PrivateRoute> },
+      { 
+        path: "/admin/dashboard/admin/careerFormData/:id",
+        element: <PrivateRoute><SingleFormData/></PrivateRoute>,
+        loader: ({ params }) => fetch(`https://hasib-vai-backend.vercel.app/single-apply-job/${params.id}`)
+      },
+      
+      { path: "/admin/dashboard/user/publishRequest", element: <PrivateRoute><RequestUser/></PrivateRoute> },
+      { path: "/admin/dashboard/admin/users", element: <PrivateRoute><Users/></PrivateRoute> },
+      { path: "/admin/dashboard/upload", element: <PrivateRoute><UploadBook /></PrivateRoute> },
+      { path: "/admin/dashboard/manage", element: <PrivateRoute><ManageBooks /></PrivateRoute> },
       {
         path: "/admin/dashboard/edit-books/:id", element: <EditBooks />,
         loader: ({ params }) => fetch(`https://hasib-vai-backend.vercel.app/book/${params.id}`)

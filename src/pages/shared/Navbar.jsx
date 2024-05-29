@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { TiShoppingCart } from "react-icons/ti";
 import { FaUserCircle } from "react-icons/fa";
-import { IoMdLogOut } from "react-icons/io";
+import { MdSpaceDashboard } from "react-icons/md";
 
 // import icons from react icons
 import { FaXmark, FaBarsStaggered } from "react-icons/fa6";
@@ -41,7 +41,7 @@ const Navbar = () => {
         { link: "Home", path: "/" },
         { link: "About app", path: "/about" },
         { link: "Areas we cover", path: "/faq" },
-        { link: "Publish with us", path: "/admin/dashboard" },
+        { link: "Publish with us", path: "/publish-with-us" },
         { link: "Our advisors", path: "/underdevlop" },
     ];
 
@@ -74,8 +74,8 @@ const Navbar = () => {
 
                     <div className="space-x-12 hidden lg:flex items-center">
                         {
-                            user ? <Link to='/logout'>
-                                <button> <IoMdLogOut className="text-3xl hover:text-blue-700" /></button>
+                            user ? <Link to='/admin/dashboard'>
+                                <button> <MdSpaceDashboard className="text-3xl hover:text-blue-700" /></button>
                             </Link> :
                                 <Link to='/login'>
                                     <button> <FaUserCircle className="text-3xl hover:text-blue-700" /></button>
@@ -100,18 +100,28 @@ const Navbar = () => {
                 </div>
 
                 <div
-                    className={`space-y-4 px-5  py-7  rounded-sm transition duration-500 bg-blue-700 ${isMenuOpen ? "translate-x-0" : "-translate-x-[500px] absolute"}`}
+                    className={` px-5  py-7  rounded-sm transition duration-500 bg-blue-700 ${isMenuOpen ? "translate-x-0" : "-translate-x-[500px] absolute"}`}
                 >
                     {
                         navItems.map(({ link, path }) => <a
                             href={path}
                             key={link}
                             onClick={toggleMenu}
-                            className="block  text-white hover:text-red-500"
+                            className="block  text-white hover:bg-blue-800 p-2"
                         >
                             {link}
                         </a>)
                     }
+                   
+                        {
+                            user ? <Link to='/admin/dashboard'>
+                                <button className="p-2 text-white hover:bg-blue-800 w-full text-start">Dashboard</button>
+                            </Link> :
+                                <Link to='/login'>
+                                    <button className="p-2 text-white hover:bg-blue-800 w-full text-start">Sign in</button>
+                                </Link>
+                        }
+                   
                 </div>
             </nav>
         </header>

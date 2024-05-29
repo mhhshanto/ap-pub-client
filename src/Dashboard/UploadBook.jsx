@@ -1,29 +1,25 @@
 import React, { useState } from 'react'
 
-import { Button, Checkbox, Label, Select, TextInput, Textarea } from 'flowbite-react';
+import { Button, Label, Select, TextInput, Textarea } from 'flowbite-react';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const UploadBook = () => {
+  
   const bookCategories = [
-    "Fiction",
-    "Non-fiction",
-    "Mystery",
-    "Programming",
-    "Science fiction",
-    "Fantasy",
-    "Horror",
-    "Biography",
-    "Autobiography",
-    "History",
-    "Self-help",
-    "Business",
-    "Memoir",
-    "Poetry",
-    "Children's books",
-    "Travel",
-    "Religion and spirituality",
-    "Science",
-    "Art and design",
-  ];
+    "Social-Development",
+    "Economics Textbook",
+    "Nursing Books",
+    "Social Work and Social Behavior",
+    "History of Social Science",
+    "Climate Change",
+    "Indigenous Australia",
+    "Sustainable Development Goals",
+    "Colonialism and Social Anthropology",
+    "Gender Studies",
+    "Psychology",
+    "Medical Sciences"
+];
 
 
   const [selectedBookCategory, setSelectedBookCategory] = useState(
@@ -44,7 +40,8 @@ const UploadBook = () => {
     const imageURL = form.imageURL.value;
     const category = form.categoryName.value;
     const bookDescription = form.bookDescription.value;
-    const bookPDFURL = form.bookPDFURL.value;
+    const price = form.price.value;
+    const rating = form.rating.value;
 
     const bookObj = {
       bookTitle,
@@ -52,24 +49,18 @@ const UploadBook = () => {
       imageURL,
       category,
       bookDescription,
-      bookPDFURL,
+      price,
+      rating
     };
-    // console.log(dataObj)
-    fetch("https://hasib-vai-backend.vercel.app/upload-book", {
-      method: "POST",
+    axios.post('https://hasib-vai-backend.vercel.app/add-book', { bookObj })
+      .then(res => {
+        if (res.data) {
+          toast.success('Added a new book!')
+        }
 
-      headers: {
-        "Content-type": "application/json",
-      },
+      })
+      .catch(err => console.log(err.message))
 
-      body: JSON.stringify(bookObj),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        alert("Book updated successfully!!!!");
-        form.reset();
-      });
   };
 
 
@@ -184,22 +175,43 @@ const UploadBook = () => {
         </div>
 
 
-        {/* book pdf url */}
-        <div>
-          <div className="mb-2 block">
-            <Label
-              htmlFor="bookPDFURL"
-              value="Book PDF Link"
+        <div className='flex justify-between gap-5'>
+          {/* book pdf url */}
+          <div className='flex-1'>
+            <div className="mb-2 block">
+              <Label
+                htmlFor="price"
+                value="Book Price"
+              />
+            </div>
+            <TextInput
+              id="price"
+              placeholder="Paste Book PDF URL here"
+              required
+              type="number"
+              name='price'
+              className='w-full'
+
             />
           </div>
-          <TextInput
-            id="bookPDFURL"
-            placeholder="Paste Book PDF URL here"
-            required
-            type="text"
-            name='bookPDFURL'
-            className='w-full'
-          />
+          {/* book pdf url */}
+          <div className='flex-1'>
+            <div className="mb-2 block">
+              <Label
+                htmlFor="rating"
+                value="Book Rating"
+              />
+            </div>
+            <TextInput
+              id="rating"
+              placeholder="Paste Book PDF URL here"
+              required
+              type="number"
+              name='rating'
+              className='w-full'
+
+            />
+          </div>
         </div>
 
 

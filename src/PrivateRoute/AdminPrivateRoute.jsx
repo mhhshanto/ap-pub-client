@@ -1,27 +1,24 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
 import { Spinner } from 'flowbite-react';
 import axios from 'axios'
-import { useState } from 'react';
 import useUserRole from '../hooks/useUserRole';
+
 
 
 const AdminPrivateRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
     const location = useLocation();
-    const {userRole} = useUserRole();
-        console.log(userRole);
+    const {role} = useUserRole();
+
     if (loading) {
-        return <div className="text-center">
-            <Spinner aria-label="Center-aligned spinner example" />
-        </div>
+        return <div>Loading...</div>
     }
 
-    // if (userRole) {
-    //     return children;
-    // }
-console.log(userRole)
+    if (user && role === 'admin') {
+        return children
+    }
 
     return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
 };

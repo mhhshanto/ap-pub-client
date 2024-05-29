@@ -1,12 +1,14 @@
 import axios from 'axios'
 import { Sidebar } from 'flowbite-react';
 import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiSupport, HiTable, HiUser, HiViewBoards, HiOutlineCloudUpload } from 'react-icons/hi';
+import { FaBookMedical } from "react-icons/fa";
 import img from '../../src/assets/profile.jpg'
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/AuthProvider';
 import MobileDashboard from './MobileDashboard';
 import { useEffect } from 'react';
+import { BsListCheck } from "react-icons/bs";
 
 const SideBar = () => {
   const { user } = useContext(AuthContext)
@@ -52,37 +54,60 @@ const SideBar = () => {
         <Sidebar.Items>
           {
             role === 'admin' ?
-              <Sidebar.ItemGroup>
-                <Sidebar.Item
-                  icon={HiChartPie}>
+              <Sidebar.ItemGroup className='flex flex-col gap-y-1'>
 
-                  <Link onClick={handleDashboard} className='w-full text-start'>
+
+                <Link onClick={handleDashboard} className='w-full text-start'>
+                  <Sidebar.Item
+                    icon={HiChartPie}>
                     Dashboard
-                  </Link>
-                </Sidebar.Item>
-                <Sidebar.Item
-                  icon={HiOutlineCloudUpload}
-                >
-                  <Link to={'/admin/dashboard/upload'}>
-                    Upload Book
-                  </Link>
-                </Sidebar.Item>
+                  </Sidebar.Item>
+                </Link>
 
-                <Sidebar.Item
-                  icon={HiInbox}
-                >
-                  <Link to={'/admin/dashboard/manage'}>
+
+                <Link to={'/admin/dashboard/upload'}>
+                  <Sidebar.Item
+                    icon={HiOutlineCloudUpload}
+                  >
+                    Upload Book
+                  </Sidebar.Item>
+                </Link>
+
+
+
+                <Link to={'/admin/dashboard/manage'}>
+                  <Sidebar.Item
+                    icon={HiInbox}
+                  >
                     ManageBooks
-                  </Link>
-                </Sidebar.Item>
-                <Sidebar.Item
-                  href="#"
-                  icon={HiUser}
-                >
-                  <Link>
+                  </Sidebar.Item>
+                </Link>
+
+                <Link to={'/admin/dashboard/admin/publishRequest'}>
+                  <Sidebar.Item
+                    icon={FaBookMedical}
+                  >
+                    Publish Request
+                  </Sidebar.Item>
+                </Link>
+
+                <Link to={'/admin/dashboard/admin/careerFormData'}>
+                  <Sidebar.Item
+                    icon={BsListCheck}
+                  >
+                    Apply Job
+                  </Sidebar.Item>
+                </Link>
+
+
+                <Link to='/admin/dashboard/admin/users'>
+                  <Sidebar.Item
+                    icon={HiUser}
+                  >
                     Users
-                  </Link>
-                </Sidebar.Item>
+                  </Sidebar.Item>
+                </Link>
+
                 <Sidebar.Item
                   href="#"
                   icon={HiShoppingBag}
@@ -116,6 +141,14 @@ const SideBar = () => {
                   <Sidebar.Item
                     icon={HiChartPie}>
                     Dashboard
+                  </Sidebar.Item>
+                </Link>
+
+                <Link to={'/admin/dashboard/user/publishRequest'}>
+                  <Sidebar.Item
+                    icon={FaBookMedical}
+                  >
+                    Publish Request
                   </Sidebar.Item>
                 </Link>
 

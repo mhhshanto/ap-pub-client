@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 const SingleBook = () => {
   const data = useLoaderData();
-  const { setCartDataState , user} = useContext(AuthContext);
+  const { setCartDataState, user } = useContext(AuthContext);
   const navigate = useNavigate()
 
   // Ensure that the data is fetched and passed correctly
@@ -19,10 +19,10 @@ const SingleBook = () => {
 
 
 
-  const handleBuyNow = () => {
-    // Implement buy now functionality
-    console.log('Buy Now clicked');
-  };
+  // const handleBuyNow = () => {
+  //   // Implement buy now functionality
+  //   console.log('Buy Now clicked');
+  // };
 
   const handleAddToCart = (id) => {
 
@@ -89,20 +89,16 @@ const SingleBook = () => {
               <span className="bg-purple-100 text-purple-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
                 Rating: {rating}
               </span>
-              <span className="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
-                Pages: {pageCount}
-              </span>
-              <span className="bg-yellow-100 text-yellow-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
-                Published: {publishedDate}
-              </span>
               <span className="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
                 Price: ${price}
               </span>
             </div>
             <div className="mt-6 flex space-x-4">
-              <Button color="success" onClick={handleBuyNow}>
-                Buy Now
-              </Button>
+              <Link to='/payment-email'>
+                <Button color="success">
+                  Buy Now
+                </Button>
+              </Link>
 
               <Button color="gray" onClick={() => handleAddToCart(_id)}>
                 <HiShoppingCart className="mr-2 h-5 w-5" />

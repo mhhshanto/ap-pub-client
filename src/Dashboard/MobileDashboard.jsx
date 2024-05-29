@@ -101,9 +101,24 @@ const MobileDashboard = () => {
                 </Navbar.Link>
               </Link>
               <Link to={'/admin/dashboard/manage'}>
-              <Navbar.Link>
-                Manage Books
-              </Navbar.Link>
+                <Navbar.Link>
+                  Manage Books
+                </Navbar.Link>
+              </Link>
+              <Link to={'/admin/dashboard/admin/publishRequest'}>
+                <Navbar.Link>
+                  Publish Request
+                </Navbar.Link>
+              </Link>
+              <Link to={'/admin/dashboard/admin/careerFormData'}>
+                <Navbar.Link>
+                  Apply Job
+                </Navbar.Link>
+              </Link>
+              <Link to={'/admin/dashboard/admin/users'}>
+                <Navbar.Link>
+                  Users
+                </Navbar.Link>
               </Link>
               <Navbar.Link href="/logout">
                 Signout
@@ -123,6 +138,11 @@ const MobileDashboard = () => {
                   Dashboard
                 </button>
               </Navbar.Link>
+              <Link to={'/admin/dashboard/user/publishRequest'}>
+                <Navbar.Link>
+                  Publish Request
+                </Navbar.Link>
+              </Link>
               <Navbar.Link href="/logout">
                 Signout
               </Navbar.Link>
