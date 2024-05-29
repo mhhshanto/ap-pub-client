@@ -24,21 +24,21 @@ const Dashboard = () => {
           <div className='bg-orange-100 p-2 text-4xl rounded-full'><span className='bg-orange-300 block p-1 rounded-full'><LuCircleDollarSign /></span></div>
           <div>
             <h1 className='text-xl font-semibold text-gray-400'>Total Sales</h1>
-            <p className='text-2xl font-semibold'>$10787978</p>
+            <p className='text-2xl font-semibold'>$1078</p>
           </div>
         </div>
         <div className='px-8 py-5 flex justify-center items-center gap-x-5 bg-white rounded-md'>
           <div className='bg-green-100 p-2 text-4xl rounded-full'><span className='bg-green-300 block p-1 rounded-full'><IoMdCart /></span></div>
           <div>
             <h1 className='text-xl font-semibold text-gray-400'>Total Orders</h1>
-            <p className='text-2xl font-semibold'>7879</p>
+            <p className='text-2xl font-semibold'>16</p>
           </div>
         </div>
         <div className='px-8 py-5 flex justify-center items-center gap-x-5 bg-white rounded-md'>
           <div className='bg-blue-100 p-2 text-4xl rounded-full'><span className='bg-blue-300 block p-1 rounded-full'><IoMdBasket /></span></div>
           <div>
             <h1 className='text-xl font-semibold text-gray-400'>Total Products</h1>
-            <p className='text-2xl font-semibold'>879</p>
+            <p className='text-2xl font-semibold'>102</p>
           </div>
         </div>
       </div>
